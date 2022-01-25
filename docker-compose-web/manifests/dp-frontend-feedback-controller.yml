@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+    dp-frontend-feedback-controller:
+        build:
+            context: ../ln-repos/dp-frontend-feedback-controller
+            dockerfile: Dockerfile.local
+        command:
+            - reflex
+            - -d
+            - none
+            - -c
+            - ./reflex
+        volumes:
+            - ../ln-repos/dp-frontend-feedback-controller:/dp-frontend-feedback-controller
+        ports:
+            - 25200:25200
+        restart: "no"
+        environment:
+            BIND_ADDR:                ":25200"
+            RENDERER_URL:  "http://dp-frontend-renderer:20010"

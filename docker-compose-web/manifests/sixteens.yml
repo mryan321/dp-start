@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+    sixteens:
+        build:
+            context: ../ln-repos/sixteens
+            dockerfile: Dockerfile
+        ports:
+            - 9000:9000

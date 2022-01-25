@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+    dp-frontend-homepage-controller:
+        build:
+            context: ../ln-repos/dp-frontend-homepage-controller
+            dockerfile: Dockerfile.local
+        command:
+            - reflex
+            - -d
+            - none
+            - -c
+            - ./reflex
+        volumes:
+            - ../ln-repos/dp-frontend-homepage-controller:/dp-frontend-homepage-controller
+        ports:
+            - 24400:24400
+        restart: "no"
+        environment:
+            BIND_ADDR:                ":24400"
+            BABBAGE_URL:              "http://babbage:8080"
+            RENDERER_URL:             "http://dp-frontend-renderer:20010"
+            IS_PUBLISHING_MODE:       "false"

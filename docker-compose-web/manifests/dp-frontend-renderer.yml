@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+    dp-frontend-renderer:
+        build:
+            context: ../ln-repos/dp-frontend-renderer
+            dockerfile: Dockerfile.local
+        volumes:
+            - ../ln-repos/dp-frontend-renderer:/dp-frontend-renderer
+        ports:
+            - 20010:20010
+        restart: "no"
+        environment:
+            BIND_ADDR:                ":20010"
+            PATTERN_LIBRARY_ASSETS_PATH: "http://sixteens:9000/dist"

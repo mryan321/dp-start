@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+    dp-publishing-dataset-controller:
+        build:
+            context: ../ln-repos/dp-publishing-dataset-controller
+            dockerfile: Dockerfile.local
+        command:
+            - reflex
+            - -d
+            - none
+            - -c
+            - ./reflex
+        volumes:
+            - ../ln-repos/dp-publishing-dataset-controller:/dp-publishing-dataset-controller
+        ports:
+            - 24000
+        restart: "no"
+        environment:
+            BIND_ADDR:          ":24000"
+            API_ROUTER_URL:     "http://dp-api-router:23200/v1"

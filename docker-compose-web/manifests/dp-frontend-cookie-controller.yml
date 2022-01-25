@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+    dp-frontend-cookie-controller:
+        build:
+            context: ../ln-repos/dp-frontend-cookie-controller
+            dockerfile: Dockerfile.local
+        command:
+            - reflex
+            - -d
+            - none
+            - -c
+            - ./reflex
+        volumes:
+            - ../ln-repos/dp-frontend-cookie-controller:/dp-frontend-cookie-controller
+        ports:
+            - 24100:24100
+        restart: "no"
+        environment:
+            BIND_ADDR:                ":24100"
+            PATTERN_LIBRARY_ASSETS_PATH:  "http://sixteens:9000/dist"

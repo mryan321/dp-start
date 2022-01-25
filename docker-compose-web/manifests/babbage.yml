@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+    babbage:
+        build:
+            context: ../ln-repos/babbage
+            dockerfile: Dockerfile
+        ports:
+            - 8080:8080
+        restart: "no"
+        environment:
+            RESTOLINO_STATIC: "/usr/src/target/web"
+            RESTOLINO_CLASSES: "/usr/src/target/classes"
+            PACKAGE_PREFIX: "com.github.onsdigital"
+            DP_COLOURED_LOGGING: "true"
+            DP_LOGGING_FORMAT: "pretty_json"
+            DEV_ENVIRONMENT: "Y"
+            IS_PUBLISHING: "Y"
+            RELOAD_TEMPLATES: "Y"
+            TEMPLATES_DIR: "/usr/src/target/web/templates/handlebars"
+            ENABLE_COVID19_FEATURE: "false"
+            CONTENT_SERVICE_URL: "http://zebedee:8082"

@@ -1,0 +1,32 @@
+version: '3.3'
+services:
+    dp-frontend-router:
+        build:
+            context: ../ln-repos/dp-frontend-router
+            dockerfile: Dockerfile.local
+        command:
+            - reflex
+            - -d
+            - none
+            - -c
+            - ./reflex
+        volumes:
+            - ../ln-repos/dp-frontend-router:/dp-frontend-router
+        ports:
+            - 20000:20000
+        restart: "no"
+        depends_on:
+            - dp-frontend-renderer
+            - dp-frontend-homepage-controller
+        environment:
+            # host
+            INTERACTIVES_ROUTES_ENABLED: "true"
+            INTERACTIVES_CONTROLLER_URL: "http://host.docker.internal:27300"
+            # internal
+            RENDERER_URL:               "http://dp-frontend-renderer:20010"
+            HOMEPAGE_CONTROLLER_URL:    "http://dp-frontend-homepage-controller:24400"
+            BABBAGE_URL:                "http://babbage:8080"
+            DATASET_CONTROLLER_URL:     "http://dp-frontend-dataset-controller:20200"
+            API_ROUTER_URL:             "http://dp-api-router:23200/v1"
+            DATASET_ROUTES_ENABLED:     "true"
+            ASSETS_DIRECTORY:           "/dp-frontend-router/assets"

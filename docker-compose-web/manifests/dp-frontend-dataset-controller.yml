@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+    dp-frontend-dataset-controller:
+        build:
+            context: ../ln-repos/dp-frontend-dataset-controller
+            dockerfile: Dockerfile.local
+        command:
+            - reflex
+            - -d
+            - none
+            - -c
+            - ./reflex
+        volumes:
+            - ../ln-repos/dp-frontend-dataset-controller:/dp-frontend-dataset-controller
+        ports:
+            - 20200:20200
+        restart: "no"
+        environment:
+            BIND_ADDR:                ":20200"
+            DOWNLOAD_SERVICE_URL:     "http://dp-download-service:23600"
+            API_ROUTER_URL:           "http://dp-api-router:23200/v1"
+            DOWNLOADER_URL:           "http://dp-download-service:23400"
+            ENABLE_CENSUS_PAGES:      "true"

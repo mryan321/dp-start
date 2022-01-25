@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+    florence:
+        build:
+            context: ../ln-repos/florence
+            dockerfile: Dockerfile.local
+        command:
+            - reflex
+            - -d
+            - none
+            - -c
+            - ./reflex
+        volumes:
+            - ../ln-repos/florence:/florence
+        ports:
+            - 8081:8081
+        depends_on:
+            - zebedee
+            - dp-frontend-dataset-controller
+        restart: unless-stopped
+        environment:
+            ENCRYPTION_DISABLED:    "true"
+            ENABLE_DATASET_IMPORT:  "true"
+            ENABLE_HOMEPAGE_PUBLISHING: "true"
+            API_ROUTER_URL:         "http://dp-api-router:23200"
+            ROUTER_URL:             "http://dp-frontend-router:20000"
+            DATASET_CONTROLLER_URL: "http://dp-publishing-dataset-controller:24000"
