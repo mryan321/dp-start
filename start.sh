@@ -31,25 +31,17 @@ tmux new-session -d -s $session_name -t $session_name;
 
 # deps
 startProcess 'dp-compose' 'docker-compose up -d';
-startProcess 'babbage' './run.sh';
-startProcess 'zebedee' './run-reader.sh';
+startProcess 'babbage' './run-publishing.sh';
+startProcess 'zebedee' './run.sh';
 startProcess 'sixteens' './run.sh';
+startProcess 'the-train' 'make debug';
 sleep 30
-startProcess 'dp-frontend-renderer' 'make debug';
-startProcess 'dp-frontend-dataset-controller' 'make debug';
-startProcess 'dp-frontend-cookie-controller' 'make debug';
-startProcess 'dp-frontend-filter-dataset-controller' 'make debug';
-startProcess 'dp-frontend-geography-controller' 'make debug';
-startProcess 'dp-frontend-homepage-controller' 'make debug';
-sleep 30
-# florence?
-# frontend
-startProcess 'dp-frontend-router' 'make debug';
-# startProcess 'dp-table-renderer' 'cd ~/go/src/github.com/onsdigital/dp-table-renderer && make debug';
 # backend
-# startProcess 'dp-api-router' 'make debug';
+startProcess 'dp-api-router' 'make debug';
+startProcess 'dp-import-api' 'make debug';
+startProcess 'dp-dataset-api' 'make debug';
+startProcess 'dp-recipe-api' 'make debug';
 # startProcess 'dp-filter-api' 'make debug';
-# startProcess 'dp-dataset-api' 'make debug';
 # startProcess 'dp-code-list-api' 'make debug';
 # startProcess 'dp-hierarchy-api' 'make debug';
 # startProcess 'dp-search-api' 'make debug';
@@ -57,6 +49,17 @@ startProcess 'dp-frontend-router' 'make debug';
 # startProcess 'dp-dataset-exporter-xlsx' 'make debug';
 # startProcess 'dp-download-service' 'make debug';
 # startProcess 'dp-image-api' 'make debug';
+sleep 30
+# frontend
+startProcess 'dp-frontend-router' 'make debug';
+# startProcess 'dp-table-renderer' 'cd ~/go/src/github.com/onsdigital/dp-table-renderer && make debug';
+startProcess 'dp-frontend-renderer' 'make debug';
+startProcess 'dp-frontend-dataset-controller' 'make debug';
+startProcess 'dp-frontend-cookie-controller' 'make debug';
+startProcess 'dp-frontend-filter-dataset-controller' 'make debug';
+startProcess 'dp-frontend-geography-controller' 'make debug';
+startProcess 'dp-frontend-homepage-controller' 'make debug';
+startProcess 'florence' 'make debug';
 
 # todo add some healthcheck curls...new function
 

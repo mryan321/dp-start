@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+    dp-recipe-api:
+        build:
+            context: ../ln-repos/dp-recipe-api
+            dockerfile: Dockerfile.local
+        command:
+            - reflex
+            - -d
+            - none
+            - -c
+            - ./reflex
+        volumes:
+            - ../ln-repos/dp-recipe-api:/dp-recipe-api
+        depends_on:
+            - kafka-1
+            - kafka-2
+            - kafka-3
+            - mongodb
+        ports:
+            - 22300:22300
+        restart: unless-stopped
+        environment:
+            MONGODB_BIND_ADDR:        "mongodb:27017"
+            KAFKA_ADDR:               "kafka-1:19092,kafka-2:19092,kafka-3:19092"
+            ENABLE_PRIVATE_ENDPOINTS: "true"
+            ZEBEDEE_URL:              "http://zebedee:8082"
+            SERVICE_AUTH_TOKEN:       $SERVICE_AUTH_TOKEN
